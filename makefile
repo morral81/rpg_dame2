@@ -1,6 +1,6 @@
 BIN_LIB = CMPSYS
 #AQUI VA LA LIBRERIA CON LA QUE SE TRABAJA
-LIBLIST=$(BIN_LIB) PGGJXXXXXX
+LIBLIST=$(BIN_LIB) PGGJGIT001
 SHELL=/QOpenSys/usr/bin/qsh
 
 all: depts.sqlrpgle employees.sqlrpgle hellojuan.rpgle
