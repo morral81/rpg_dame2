@@ -14,6 +14,6 @@ begsr principal;
    exec sql set :string = UPPER(:string);       
    dsply string;                                
                            
-   dsply prueba;                                
+   dsply prueba2;                                
                                                     
 endsr;                                            
