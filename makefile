@@ -3,7 +3,7 @@ BIN_LIB = CMPSYS
 LIBLIST=$(BIN_LIB) PGGJGIT001
 SHELL=/QOpenSys/usr/bin/qsh
 
-all: hola1.rpgle prueba2.rpgle hola2.rpgle prueba5.rpgle prueba6.rpgle prueba7.rpgle
+all: hola1.rpgle prueba2.rpgle hola2.rpgle prueba5.rpgle prueba6.rpgle prueba7.rpgle prueba9.sqlrpgle
 
 %.rpgle:
 	 system  -s "CHGATR OBJ('/home/DSGOGAMTJ/RPG_DAME2/DPIRPG/$*.rpgle') ATR(*CCSID) VALUE(1252)"
@@ -13,8 +13,8 @@ all: hola1.rpgle prueba2.rpgle hola2.rpgle prueba5.rpgle prueba6.rpgle prueba7.r
 	 system "CHGPFM FILE($(BIN_LIB)/DPIRPG) MBR($*) SRCTYPE(RPGLE) TEXT('Se realizo deploy desde el local')"
 
 %.sqlrpgle:
-	 system  -s "CHGATR OBJ('/home/DSGOGAMTJ/RPG_DAME2/DPIRPG/$*.rpgle') ATR(*CCSID) VALUE(1252)"
+	 system  -s "CHGATR OBJ('/home/DSGOGAMTJ/RPG_DAME2/DPIRPG/$*.sqlrpgle') ATR(*CCSID) VALUE(1252)"
 	 liblist -a $(LIBLIST);\
 	 system "CRTSQLRPGI OBJ($(BIN_LIB)/$*) SRCSTMF('/home/DSGOGAMTJ/RPG_DAME2/DPIRPG/$*.sqlrpgle') DBGVIEW(*SOURCE) OPTION(*EVENTF)"
 	 system "CPYFRMSTMF FROMSTMF('/home/DSGOGAMTJ/RPG_DAME2/DPIRPG/$*.sqlrpgle') TOMBR('/QSYS.lib/$(BIN_LIB).lib/DPIRPG.file/$*.mbr') MBROPT(*REPLACE)"
-	 system "CHGPFM FILE($(BIN_LIB)/DPIRPG) MBR($*) SRCTYPE(RPGLE) TEXT('Se realizo deploy desde el local')"
+	 system "CHGPFM FILE($(BIN_LIB)/DPIRPG) MBR($*) SRCTYPE(SQLRPGLE) TEXT('Se realizo deploy desde el local')"

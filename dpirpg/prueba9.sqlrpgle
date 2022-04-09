@@ -1,19 +1,15 @@
 **free
 ctl-opt dftactgrp(*NO);                           
                                                     
-dcl-s string  char(20) inz('sql statement');      
-dcl-s prueba  char(20) inz;                       
-
-                                                                                                       
+dcl-s string  char(15) inz('sql statement');      
+                                                                                                                             
 // Inicio Programa                                 
 exsr principal;                                   
 *inlr = *on;                                      
+return;
                                                     
 begsr principal;                                  
-                                                    
+   dsply ('after: ' + %trim(string));                                
    exec sql set :string = UPPER(:string);       
-   dsply string;                                
-                           
-   dsply prueba2;                                
-                                                    
+   dsply ('before: '+ %trim(string));                                                  
 endsr;                                            
