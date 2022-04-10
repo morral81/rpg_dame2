@@ -18,3 +18,8 @@ all: hola1.rpgle prueba2.rpgle hola2.rpgle prueba5.rpgle prueba6.rpgle prueba7.r
 	 system "CRTSQLRPGI OBJ($(BIN_LIB)/$*) SRCSTMF('/home/DSGOGAMTJ/RPG_DAME2/DPIRPG/$*.sqlrpgle') DBGVIEW(*SOURCE) OPTION(*EVENTF)"
 	 system "CPYFRMSTMF FROMSTMF('/home/DSGOGAMTJ/RPG_DAME2/DPIRPG/$*.sqlrpgle') TOMBR('/QSYS.lib/$(BIN_LIB).lib/DPIRPG.file/$*.mbr') MBROPT(*REPLACE)"
 	 system "CHGPFM FILE($(BIN_LIB)/DPIRPG) MBR($*) SRCTYPE(SQLRPGLE) TEXT('Se realizo deploy desde el local')"
+
+%.dspf:
+	system "CPYFRMSTMF FROMSTMF('/home/DSGOGAMTJ/RPG_DAME2/DPISRN/$*.dspf') TOMBR('/QSYS.lib/$(BIN_LIB).lib/DPISRN.file/$*.mbr') MBROPT(*REPLACE)"
+	system "CHGPFM FILE($(BIN_LIB)/DPISRN) MBR($*) SRCTYPE(DSPF) TEXT('Se realizo deploy desde el local')"
+	system "CRTDSPF FILE($(BIN_LIB)/$*) SRCFILE($(BIN_LIB)/DPISRN) SRCMBR($*)"
