@@ -1,4 +1,4 @@
---drop table PASO.PPRUEB55;
+drop table PASO.PPRUEB55;
 
 CREATE TABLE PASO.PPRUEB55 AS(
 select * from guardbv1.blconvenio
