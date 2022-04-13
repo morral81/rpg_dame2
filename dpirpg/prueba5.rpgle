@@ -13,9 +13,9 @@ dsply variable2;
 dsply variable1;
 dsply variable3;
 
-
-
-
 *inlr = *on;
 return;
+
+
+
 

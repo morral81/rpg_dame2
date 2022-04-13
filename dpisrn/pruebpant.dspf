@@ -1,0 +1,594 @@
+     A*%%TS  SD  20170808  084253  DSMACIATJ   REL-V5R3M0  5722-WDS
+     A*  91/11/19  14:46:36    ALEXISMEX   REL-R03M00  5728-PW1
+     A*****************************************************************
+     A*                                                               *
+     A*...............................................................*
+     A*  R E V I S I O N S                                            *
+     A*...............................................................*
+     A*                                                               *
+     A*   BLC           03/13/91  CHANGE SERVICE ORDER TO 6 POSITIONS *
+     A*   H.WHITE       03/27/91  ADD MASTER/SUB ACCOUNT              *
+     A*   H.WHITE       05/13/91  ADD CODE FOR CLOSED S/O TO EMULATE  *
+     A*                           POSTED S/O                          *
+     A*   H.WHITE       06/13/91  ADD CONTRACT DATE TO FORMAT00       *
+     A*                                                               *
+001  A*   JCB           08/13/91  ALLOW CONTRACT DATE TO BE CHANGED   *
+     A*                                                               *
+     A*   J BAMBAREN    09/15/91  ADDED CONTRACT DATE TO FORMAT02.    *
+     A*                                                               *
+     A*   R SPEAS       03/18/92  ADDED SUB-ORDER SUFFIX              *
+     A*                                                               *
+DDT  A*   M CLARK       10/03/92  MAINTAIN DDT CHANGES                *
+     A*                                                               *
+     A*   J HALSEY      08/20/93  REMOVE CF07 CAPABILITY              *
+     A*                                                               *
+MMA  A*   E MAÑON A     04/03/95  MENSAJE ERROR FECHA HORA NO DISPONIB*
+     A*                                                               *
+MMA1 A*   E MAÑON A     04/28/95  FECHA CONTRAT. Y CONTACTO NO SE VI- *
+     A*                           SUALIZAN                            *
+     A*                                                               *
+     A*****************************************************************
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      CHGINPDFT
+     A                                      MSGLOC(24)
+     A                                      PRINT
+     A*  91/11/19  14:46:36    ALEXISMEX   REL-R03M00  5728-PW1
+     A*...............................................................*
+     A          R FORMAT00
+     A*%%TS  SD  20010110  124810  DSMACIATJ   REL-V4R4M0  5769-PW1
+     A                                      LOCK
+     A                                      BLINK
+     A                                  1 13'*** PROGRAMACION DE FECHA DE INSTA-
+     A                                      LACION Y CONTACTO ***'
+     A                                      DSPATR(HI)
+     A N84N85                           2  3'NÚmero de Orden ...'
+     A  85                              2  3'NÚmero Orden Posteo'
+     A                                      DSPATR(BL)
+     A                                      DSPATR(HI)
+     A  84                              2  3'No. Orden Cerrado..'
+     A                                      DSPATR(HI)
+     A            SOÑ            8Y 0O  2 23DSPATR(HI)
+     A                                      EDTWRD('        ')
+     A            MSOSFX         1A  O  2 32DSPATR(HI)
+     A            MSOTOS         2A  O  2 35
+     A            SOTDES        20A  O  2 38
+     A  61                              2 59'Tel.Ant..'
+     A  61        MSOOPH        10Y 0O  2 70EDTWRD('      -    ')
+     A                                  3  3'NÚmero Telefonico..'
+     A            MSOPHÑ        10Y 0O  3 23EDTWRD('      -    ')
+     A            PUBPHÑ         2A  O  3 35
+     A            NAMPHÑ        31A  O  3 38
+     A  80                              4  3'Factura con Numero.'
+     A  80        MSOMBÑ        10Y 0O  4 23EDTWRD('      -    ')
+     A  80        PUBMBÑ         2A  O  4 35
+     A  80        NAMMBÑ        31A  O  4 38
+     A  78                              5  1'Cuenta Maestra ..'
+     A  78        CTAMTA         7A  O  5 19
+     A                                 24  1'F1 - Pantalla Anterior'
+     A  83                             24 55'F6 - Pantalla Siguiente '
+4290 A*N83*************>               24 55'F7 - Terminar '
+     A*  91/11/19  14:46:36    ALEXISMEX   REL-R03M00  5728-PW1
+     A*...............................................................*
+     A          R FORMAT01
+     A*%%TS  SD  20010222  172743  ASLOLUCMY   REL-V4R4M0  5769-PW1
+     A                                      CA01
+     A  83                                  CF06
+     A N45                                  ROLLUP(40)
+     A N46                                  ROLLDOWN(41)
+     A N82                                  CF18
+     A N82                                  CF09
+     A  79                                  ALARM
+     A                                      CHANGE(69)
+     A                                      LOCK
+     A                                      CLRL(*NO)
+     A                                      OVERLAY
+     A                                  4 31'Fecha Original'
+     A                                  5 31'de Contacto:'
+     A            CD0DTE         8Y 0B  5 44DSPATR(CS)
+     A  82                                  DSPATR(PR)
+     A  36                                  DSPATR(RI)
+     A  36                                  DSPATR(PC)
+     A  36                                  ERRMSG('FECHA INCORRECTA O MAYOR A -
+     A                                      LA ACTUAL')
+     A                                  5 53'Fecha de Contrato'
+     A            CONDTE         8Y 0B  5 71DSPATR(CS)
+     A  82                                  DSPATR(PR)
+     A  16                                  DSPATR(RI)
+     A  16                                  DSPATR(PC)
+     A                                      EDTWRD('        .')
+     A  16                                  ERRMSG('FECHA INCORRECTA O MAYOR A -
+     A                                      LA ACTUAL')
+     A                                  7  2'    Contacto   '
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                  7 20' No. '
+     A                                      DSPATR(HI)
+     A                                  7 27'   Compromiso '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  7 43'Negociado'
+     A                                      DSPATR(HI)
+     A                                  7 56'    ISR     '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  7 70'RazÓn No  '
+     A                                      DSPATR(HI)
+     A                                  8  2' Fecha  '
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                  8 12' Hora'
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                  8 20' Emp.'
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                  8 27'  Fecha '
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                  8 36' Hora'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                  8 43'P/Cliente '
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                  8 56'CD'
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                  8 60'  Fecha '
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A                                  8 70'Terminada '
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A N82        CONDAT         8Y 0B  9  3DSPATR(CS)
+     A  13                                  DSPATR(RI)
+     A  13                                  DSPATR(PC)
+     A                                      EDTWRD('        .')
+     A N82        CONTIM         4Y 0B  9 13DSPATR(CS)
+     A  14                                  DSPATR(RI)
+     A  14                                  DSPATR(PC)
+     A                                      EDTWRD('    ')
+     A                                 13  2'Programa ? .........'
+     A            MSOPSC         5A  B 13 23TEXT('SCHEDULE CODE')
+     A  11                                  DSPATR(RI)
+     A  11
+     AO 32                                  DSPATR(PC)
+     A N82                                  DSPATR(CS)
+jag01A  81                                  DSPATR(PR)
+     A            PSMM           2Y 0B 13 32
+     A N82                                  DSPATR(CS)
+     A  11                                  DSPATR(RI)
+     A  11                                  DSPATR(PC)
+     A  82                                  DSPATR(PR)
+     A                                      EDTWRD('  ')
+     A            SPSDES        20A  O 13 47TEXT('SOURCE DESCRIPTION')
+     A                                 22 27'Unidades ...........'
+     A                                      DSPATR(HI)
+     A            MSOWUR         3Y 0B 22 48
+     A N82                                  DSPATR(CS)
+     A  82                                  DSPATR(PR)
+     A                                      EDTWRD('   ')
+     A                                      COMP(GE 0)
+     A N82                             23  1'F9 - Agr. Nvo. Contact'
+     A                                      DSPATR(HI)
+     A N82                             23 30'F18 - Cambia Contacto Existente'
+     A                                      DSPATR(HI)
+     A N45                             24 30'RePag.'
+     A                                      DSPATR(HI)
+     A N46                             24 41'AvPag.  '
+     A                                      DSPATR(HI)
+     A*  91/11/19  14:46:36    ALEXISMEX   REL-R03M00  5728-PW1
+     A*...............................................................*
+     A          R FORMAT02
+     A*%%TS  SD  20170808  084138  DSMACIATJ   REL-V5R3M0  5722-WDS
+     A                                      CA01
+     A                                      CA02
+     A  83                                  CF06
+     A N51                                  CA24
+     A  80                                  ALARM
+     A                                      CHANGE(69)
+     A                                      LOCK
+     A                                      CLRL(*NO)
+     A                                      OVERLAY
+     A                                  4 31'Fecha Original'
+     A                                  5 31'de Contacto:'
+     A            CD0DT1         8Y 0O  5 44EDTWRD('  /  /    ')
+     A                                  5 55'Fecha Contrato'
+     A            CODTE1         8Y 0O  5 70EDTWRD('  /  /    ')
+     A                                  6  2'Fecha / Hora Contacto ...'
+     A            CONDAT         8Y 0B  6 28DSPATR(CS)
+     A  13                                  DSPATR(RI)
+     A  13                                  DSPATR(PC)
+     A                                      EDTWRD('        .')
+     A            CONTIM         4Y 0B  6 38DSPATR(CS)
+     A  14                                  DSPATR(RI)
+     A  14                                  DSPATR(PC)
+     A                                      EDTWRD('    ')
+     A N51                              6 52' ** ACTIVO ** '
+     A                                      DSPATR(RI)
+     A  51                              6 52' ** NUEVO ** '
+     A                                      DSPATR(RI)
+     A                                  7  2'Contacto Por ............'
+     A            S10TEC         7Y 0B  7 28TEXT('TAKEN BY EMPLOYEE')
+     A                                      DSPATR(CS)
+     A                                      EDTWRD('       ')
+     A                                      DSPATR(PR)
+     A            SCRNAM        30A  O  7 37
+     A                                  8  2'Fecha de Compromiso .....'
+     A            S10DUE         8Y 0B  8 28DSPATR(CS)
+     A  17                                  DSPATR(RI)
+     A  17                                  DSPATR(PC)
+     A  25                                  ERRMSG('Fecha/Hora No Disponible')
+     A  26                                  ERRMSG('Fecha Compromiso Anterior a-
+     A                                       Fecha de ContrataciÓn')
+     A  27                                  ERRMSG('Fecha Comp. Mayor a 6 Meses-
+     A                                       de Fecha de Contratac')
+     A                                      EDTWRD('        .')
+     A                                  9  2'Hora de Compromiso ......'
+     A            S10DTM         4Y 0B  9 28
+     A  18                                  DSPATR(RI)
+     A                                      DSPATR(CS)
+     A  18                                  DSPATR(PC)
+     A                                      EDTWRD('    ')
+     A                                 10  2'Negociado por Cliente ...'
+     A            S10ORC         1A  B 10 28DSPATR(CS)
+     A  20                                  DSPATR(RI)
+     A  20                                  DSPATR(PC)
+     A                                 11  2'Codigo PIS?..............'
+     A            S10SRC         2A  B 11 28DSPATR(CS)
+     A  21                                  DSPATR(RI)
+     A  21
+     AO 31                                  DSPATR(PC)
+     A            SCRIDS        20A  O 11 37
+     A                                 12  2'Fecha PIS?...............'
+     A            S10ISR         8Y 0O 12 28EDTWRD('        .')
+     A                                 13  2'RazÓn No Terminada? .....'
+     A            S10RNC         2A  B 13 28DSPATR(CS)
+     A  24                                  DSPATR(RI)
+     A  24
+     AO 33                                  DSPATR(PC)
+     A            SCRRCD        20A  O 13 37
+     A                                 14  2'Programa InstalaciÓn?....'
+     A            MSOPSC         5A  B 14 28DSPATR(CS)
+     A  11                                  DSPATR(RI)
+     A  11
+     AO 32                                  DSPATR(PC)
+     A            PSMM           2Y 0B 14 36DSPATR(CS)
+     A                                 22 28'Unidades ...........'
+     A                                      DSPATR(HI)
+     A            MSOWUR         3Y 0B 22 49DSPATR(CS)
+     A                                      EDTWRD('   ')
+     A                                      COMP(GE 0)
+     A N51                             23  1'F2 - CÓdigo Programa'
+     A                                      DSPATR(HI)
+     A  51                             23  1'F2 - Pantalla Anterior'
+     A                                      DSPATR(HI)
+     A N51N91                          23 28'F24 - Borra Registro Contacto'
+     A                                      DSPATR(HI)
+     A  51                             24  1'F1 - Pantalla SelecciÓn'
+     A*  91/11/19  14:46:36    ALEXISMEX   REL-R03M00  5728-PW1
+     A*...............................................................*
+     A          R FORMAT03
+     A*%%TS  SD  19981222  145408  DSPADIATJ   REL-V4R2M0  5769-PW1
+     A                                      CA01
+     A  83                                  CF06
+     A                                      CA02
+     A  79                                  ALARM
+     A                                      CHANGE(69)
+     A                                      LOCK
+     A                                      CLRL(*NO)
+     A                                      OVERLAY
+     A                                      PROTECT
+     A            CONDAT         8Y 0O  9  2
+     A            CONTIM         4Y 0O  9 12EDTWRD('  :  ')
+     A            S10CDT         8Y 0O 10  2TEXT('REPORT DATE')
+     A            S10CTM         4Y 0O 10 12TEXT('REPORT TIME')
+     A                                      EDTWRD('  :  ')
+     A            S10TEC         7Y 0O 10 18TEXT('TAKEN BY EMPLOYEE')
+     A                                      EDTWRD('       ')
+     A            S10DUE         8  0O 10 27TEXT('DUE DATE')
+     A            S10DTM         4Y 0O 10 36EDTWRD('  :  ')
+     A            S10ORC         1A  O 10 47TEXT('CUSTOMER NEGOTIATED')
+     A            S10SRC         2A  O 10 56TEXT('ISR CODE')
+     A            S10ISR         8Y 0O 10 60TEXT('TSR DATE')
+     A            S10RNC         2A  B 10 74DSPATR(CS)
+     A  24                                  DSPATR(RI)
+     A  24
+     AO 33                                  DSPATR(PC)
+     A            MSOPSC         5A  O 13 23TEXT('SCHEDULE CODE')
+     A            PSMM           2S 0O 13 32
+     A            SPSDES        20A  O 13 47TEXT('SOURCE DESCRIPTION')
+     A            MSOWUR         3Y 0O 22 48EDTWRD('   ')
+     A                                 23  1'F2 - InformaciÓn de Programa      -
+     A                                                                         '
+     A*  91/11/19  14:46:36    ALEXISMEX   REL-R03M00  5728-PW1
+     A*...............................................................*
+     A          R FORMAT04
+     A*%%TS  SD  19920306  095817  DPIDAVE     REL-V2R1M0  5738-PW1
+     A                                      CLRL(*NO)
+     A                                      OVERLAY
+     A                                      LOCK
+     A                                 15  5' AM '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 15 11' PM '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 15 21' AM '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 15 27' PM '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 15 37' AM '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 15 43' PM '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 15 53' AM '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 15 59' PM '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 15 69' AM '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 15 75' PM '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 16  1' 1.'
+     A            UA01           3Y 0O 16  5DSPATR(UL)
+     A                                      EDTWRD(' 0 -')
+     A            UP01           3Y 0O 16 11DSPATR(UL)
+     A                                      EDTWRD(' 0 -')
+     A                                 16 17' 2.'
+     A            UA02           3Y 0O 16 21DSPATR(UL)
+     A                                      EDTWRD(' 0 -')
+     A            UP02           3Y 0O 16 27DSPATR(UL)
+     A                                      EDTWRD(' 0 -')
+     A                                 16 33' 3.'
+     A            UA03           3Y 0O 16 37DSPATR(UL)
+     A                                      EDTWRD(' 0 -')
+     A            UP03           3Y 0O 16 43DSPATR(UL)
+     A                                      EDTWRD(' 0 -')
+     A                                 16 49' 4.'
+     A            UA04           3Y 0O 16 53DSPATR(UL)
+     A                                      EDTWRD(' 0 -')
+     A            UP04           3Y 0O 16 59DSPATR(UL)
+     A                                      EDTWRD(' 0 -')
+     A                                 16 65' 5.'
+     A            UA05           3Y 0O 16 69DSPATR(UL)
+     A                                      EDTWRD(' 0 -')
+     A            UP05           3Y 0O 16 75DSPATR(UL)
+     A                                      EDTWRD(' 0 -')
+     A                                 17  1' 6.'
+     A            UA06           3Y 0O 17  5TEXT('AVAILABLE UNITS AM')
+     A                                      DSPATR(UL)
+     A                                      EDTWRD(' 0 -')
+     A            UP06           3Y 0O 17 11TEXT('AVAILABLE UNITS PM')
+     A                                      DSPATR(UL)
+     A                                      EDTWRD(' 0 -')
+     A                                 17 17' 7.'
+     A            UA07           3Y 0O 17 21TEXT('AVAILABLE UNITS AM')
+     A                                      DSPATR(UL)
+     A                                      EDTWRD(' 0 -')
+     A            UP07           3Y 0O 17 27TEXT('AVAILABLE UNITS PM')
+     A                                      DSPATR(UL)
+     A                                      EDTWRD(' 0 -')
+     A                                 17 33' 8.'
+     A            UA08           3Y 0O 17 37TEXT('AVAILABLE UNITS AM')
+     A                                      DSPATR(UL)
+     A                                      EDTWRD(' 0 -')
+     A            UP08           3Y 0O 17 43TEXT('AVAILABLE UNITS PM')
+     A                                      DSPATR(UL)
+     A                                      EDTWRD(' 0 -')
+     A                                 17 49' 9.'
+     A            UA09           3Y 0O 17 53TEXT('AVAILABLE UNITS AM')
+     A                                      DSPATR(UL)
+     A                                      EDTWRD(' 0 -')
+     A            UP09           3Y 0O 17 59TEXT('AVAILABLE UNITS PM')
+     A                                      DSPATR(UL)
+     A                                      EDTWRD(' 0 -')
+     A                                 17 65'10.'
+     A            UA10           3Y 0O 17 69TEXT('AVAILABLE UNITS AM')
+     A                                      DSPATR(UL)
+     A                                      EDTWRD(' 0 -')
+     A            UP10           3Y 0O 17 75TEXT('AVAILABLE UNITS PM')
+     A                                      DSPATR(UL)
+     A                                      EDTWRD(' 0 -')
+     A                                 18  1'11.'
+     A            UA11           3Y 0O 18  5TEXT('AVAILABLE UNITS AM')
+     A                                      DSPATR(UL)
+     A                                      EDTWRD(' 0 -')
+     A            UP11           3Y 0O 18 11TEXT('AVAILABLE UNITS PM')
+     A                                      DSPATR(UL)
+     A                                      EDTWRD(' 0 -')
+     A                                 18 17'12.'
+     A            UA12           3Y 0O 18 21TEXT('AVAILABLE UNITS AM')
+     A                                      DSPATR(UL)
+     A                                      EDTWRD(' 0 -')
+     A            UP12           3Y 0O 18 27TEXT('AVAILABLE UNITS PM')
+     A                                      DSPATR(UL)
+     A                                      EDTWRD(' 0 -')
+     A                                 18 33'13.'
+     A            UA13           3Y 0O 18 37TEXT('AVAILABLE UNITS AM')
+     A                                      DSPATR(UL)
+     A                                      EDTWRD(' 0 -')
+     A            UP13           3Y 0O 18 43TEXT('AVAILABLE UNITS PM')
+     A                                      DSPATR(UL)
+     A                                      EDTWRD(' 0 -')
+     A                                 18 49'14.'
+     A            UA14           3Y 0O 18 53TEXT('AVAILABLE UNITS AM')
+     A                                      DSPATR(UL)
+     A                                      EDTWRD(' 0 -')
+     A            UP14           3Y 0O 18 59TEXT('AVAILABLE UNITS PM')
+     A                                      DSPATR(UL)
+     A                                      EDTWRD(' 0 -')
+     A                                 18 65'15.'
+     A            UA15           3Y 0O 18 69TEXT('AVAILABLE UNITS AM')
+     A                                      DSPATR(UL)
+     A                                      EDTWRD(' 0 -')
+     A            UP15           3Y 0O 18 75TEXT('AVAILABLE UNITS PM')
+     A                                      DSPATR(UL)
+     A                                      EDTWRD(' 0 -')
+     A                                 19  1'16.'
+     A            UA16           3Y 0O 19  5TEXT('AVAILABLE UNITS AM')
+     A                                      DSPATR(UL)
+     A                                      EDTWRD(' 0 -')
+     A            UP16           3Y 0O 19 11TEXT('AVAILABLE UNITS PM')
+     A                                      DSPATR(UL)
+     A                                      EDTWRD(' 0 -')
+     A                                 19 17'17.'
+     A            UA17           3Y 0O 19 21TEXT('AVAILABLE UNITS AM')
+     A                                      DSPATR(UL)
+     A                                      EDTWRD(' 0 -')
+     A            UP17           3Y 0O 19 27TEXT('AVAILABLE UNITS PM')
+     A                                      DSPATR(UL)
+     A                                      EDTWRD(' 0 -')
+     A                                 19 33'18.'
+     A            UA18           3Y 0O 19 37TEXT('AVAILABLE UNITS AM')
+     A                                      DSPATR(UL)
+     A                                      EDTWRD(' 0 -')
+     A            UP18           3Y 0O 19 43TEXT('AVAILABLE UNITS PM')
+     A                                      DSPATR(UL)
+     A                                      EDTWRD(' 0 -')
+     A                                 19 49'19.'
+     A            UA19           3Y 0O 19 53TEXT('AVAILABLE UNITS AM')
+     A                                      DSPATR(UL)
+     A                                      EDTWRD(' 0 -')
+     A            UP19           3Y 0O 19 59TEXT('AVAILABLE UNITS PM')
+     A                                      DSPATR(UL)
+     A                                      EDTWRD(' 0 -')
+     A                                 19 65'20.'
+     A            UA20           3Y 0O 19 69TEXT('AVAILABLE UNITS AM')
+     A                                      DSPATR(UL)
+     A                                      EDTWRD(' 0 -')
+     A            UP20           3Y 0O 19 75TEXT('AVAILABLE UNITS PM')
+     A                                      DSPATR(UL)
+     A                                      EDTWRD(' 0 -')
+     A                                 20  1'21.'
+     A            UA21           3Y 0O 20  5TEXT('AVAILABLE UNITS AM')
+     A                                      DSPATR(UL)
+     A                                      EDTWRD(' 0 -')
+     A            UP21           3Y 0O 20 11TEXT('AVAILABLE UNITS PM')
+     A                                      DSPATR(UL)
+     A                                      EDTWRD(' 0 -')
+     A                                 20 17'22.'
+     A            UA22           3Y 0O 20 21TEXT('AVAILABLE UNITS AM')
+     A                                      DSPATR(UL)
+     A                                      EDTWRD(' 0 -')
+     A            UP22           3Y 0O 20 27TEXT('AVAILABLE UNITS PM')
+     A                                      DSPATR(UL)
+     A                                      EDTWRD(' 0 -')
+     A                                 20 33'23.'
+     A            UA23           3Y 0O 20 37TEXT('AVAILABLE UNITS AM')
+     A                                      DSPATR(UL)
+     A                                      EDTWRD(' 0 -')
+     A            UP23           3Y 0O 20 43TEXT('AVAILABLE UNITS PM')
+     A                                      DSPATR(UL)
+     A                                      EDTWRD(' 0 -')
+     A                                 20 49'24.'
+     A            UA24           3Y 0O 20 53TEXT('AVAILABLE UNITS AM')
+     A                                      DSPATR(UL)
+     A                                      EDTWRD(' 0 -')
+     A            UP24           3Y 0O 20 59TEXT('AVAILABLE UNITS PM')
+     A                                      DSPATR(UL)
+     A                                      EDTWRD(' 0 -')
+     A                                 20 65'25.'
+     A            UA25           3Y 0O 20 69TEXT('AVAILABLE UNITS AM')
+     A                                      DSPATR(UL)
+     A                                      EDTWRD(' 0 -')
+     A            UP25           3Y 0O 20 75TEXT('AVAILABLE UNITS PM')
+     A                                      DSPATR(UL)
+     A                                      EDTWRD(' 0 -')
+     A                                 21  1'26.'
+     A            UA26           3Y 0O 21  5TEXT('AVAILABLE UNITS AM')
+     A                                      DSPATR(UL)
+     A                                      EDTWRD(' 0 -')
+     A            UP26           3Y 0O 21 11TEXT('AVAILABLE UNITS PM')
+     A                                      DSPATR(UL)
+     A                                      EDTWRD(' 0 -')
+     A                                 21 17'27.'
+     A            UA27           3Y 0O 21 21TEXT('AVAILABLE UNITS AM')
+     A                                      DSPATR(UL)
+     A                                      EDTWRD(' 0 -')
+     A            UP27           3Y 0O 21 27TEXT('AVAILABLE UNITS PM')
+     A                                      DSPATR(UL)
+     A                                      EDTWRD(' 0 -')
+     A                                 21 33'28.'
+     A            UA28           3Y 0O 21 37TEXT('AVAILABLE UNITS AM')
+     A                                      DSPATR(UL)
+     A                                      EDTWRD(' 0 -')
+     A            UP28           3Y 0O 21 43TEXT('AVAILABLE UNITS PM')
+     A                                      DSPATR(UL)
+     A                                      EDTWRD(' 0 -')
+     A                                 21 49'29.'
+     A            UA29           3Y 0O 21 53TEXT('AVAILABLE UNITS AM')
+     A                                      DSPATR(UL)
+     A                                      EDTWRD(' 0 -')
+     A            UP29           3Y 0O 21 59TEXT('AVAILABLE UNITS PM')
+     A                                      DSPATR(UL)
+     A                                      EDTWRD(' 0 -')
+     A                                 21 65'30.'
+     A            UA30           3Y 0O 21 69TEXT('AVAILABLE UNITS AM')
+     A                                      DSPATR(UL)
+     A                                      EDTWRD(' 0 -')
+     A            UP30           3Y 0O 21 75TEXT('AVAILABLE UNITS PM')
+     A                                      DSPATR(UL)
+     A                                      EDTWRD(' 0 -')
+     A                                 22  1'31.'
+     A            UA31           3Y 0O 22  5TEXT('AVAILABLE UNITS AM')
+     A                                      DSPATR(UL)
+     A                                      EDTWRD(' 0 -')
+     A            UP31           3Y 0O 22 11TEXT('AVAILABLE UNITS PM')
+     A                                      DSPATR(UL)
+     A                                      EDTWRD(' 0 -')
+     A*  91/11/19  14:46:36    ALEXISMEX   REL-R03M00  5728-PW1
+     A*...............................................................*
+     A          R FORMAT05
+     A*%%TS  SD  19981222  145408  DSPADIATJ   REL-V4R2M0  5769-PW1
+     A                                      LOCK
+     A                                      CLRL(*NO)
+     A                                      SLNO(*VAR)
+     A                                      OVERLAY
+     A                                      PROTECT
+     A            S10CDT         8Y 0O  1  2TEXT('REPORT DATE')
+     A            S10CTM         4Y 0O  1 12TEXT('REPORT TIME')
+     A                                      EDTWRD('  :  ')
+     A            S10TEC         7Y 0O  1 18TEXT('TAKEN BY EMPLOYEE')
+     A                                      EDTWRD('       ')
+     A            S10DUE         8  0O  1 27TEXT('APPOINTMENT DATE')
+     A            S10DTM         4Y 0O  1 36EDTWRD('  :  ')
+     A            S10ORC         1A  O  1 47TEXT('CUSTOMER NEGOTIATED')
+     A            S10SRC         2A  O  1 56
+     A            S10ISR         8Y 0O  1 60TEXT('ISR DATE')
+     A            S10RNC         2A  O  1 74TEXT('COMPLETION STATUS')
+LR-03A          R FORMATWW
+  .  A                                      WINDOW(10 35 11 37)
+  .  A                                      WDWBORDER((*COLOR PNK) (*DSPATR RI))
+  .  A          R FORMATW1
+  .  A*%%TS  SD  19970130  171357  ASRODRLMY   REL-V3R6M0  5716-PW1
+  .  A                                      WINDOW(FORMATWW)
+  .  A                                      CA07(07 'REGRESAR')
+  .  A                                      KEEP
+  .  A                                      OVERLAY
+  .  A                                  2  4'Autorizacion para cambiar fecha'
+  .  A                                      DSPATR(HI)
+  .  A                                  5  3'USUARIO..'
+  .  A                                  7  3'PASSWORD.'
+  .  A            CLAVEU        10A  B  5 14DSPATR(UL)
+  .  A                                      DSPATR(PC)
+  .  A            CLAVEP        10A  B  7 14DSPATR(ND)
+  .  A  96                              9  8'*CONTRASEÑA INCORRECTA*'
+  .  A                                      DSPATR(HI)
+  .  A  97                              9 11'*CLAVE INCORRECTA*'
+  .  A                                      DSPATR(HI)
+  .  A  98                              9 12'*NO AUTORIZADO*'
+  .  A                                      DSPATR(HI)
+  .  A                                 10 15'F7-SALIR'
+  .  A                                      COLOR(BLU)
+  .  A                                  3  4'de contrataciÓn'
+LR-03A                                      DSPATR(HI)

@@ -4,6 +4,7 @@ LIBLIST=$(BIN_LIB) PGGJGIT001
 SHELL=/QOpenSys/usr/bin/qsh
 
 all: hola1.rpgle prueba2.rpgle hola2.rpgle prueba5.rpgle prueba6.rpgle prueba7.rpgle prueba9.sqlrpgle prueba47.sql
+     pruebpant.dspf
 
 %.rpgle:
 	 system  -s "CHGATR OBJ('/home/DSGOGAMTJ/RPG_DAME2/DPIRPG/$*.rpgle') ATR(*CCSID) VALUE(1252)"

@@ -12,5 +12,5 @@ begsr principal;
    varnum = 523;
    dsply varnum;
    dsply varnum2;
-   dsply varnum3;
+   dsply varnum2588;
 endsr;
